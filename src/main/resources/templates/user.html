@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>User page</title>
+</head>
+<body>
+
+<h1>User page</h1>
+
+<p><b>Username:</b> <span th:text="${user.username}"></span></p>
+<p><b>First name:</b> <span th:text="${user.firstName}"></span></p>
+<p><b>Last name:</b> <span th:text="${user.lastName}"></span></p>
+<p><b>Email:</b> <span th:text="${user.email}"></span></p>
+
+<p><b>Roles:</b>
+    <span th:each="r : ${user.roles}"
+          th:text="${r.name} + ' '"></span>
+</p>
+
+<!-- Logout с любой страницы -->
+<form th:action="@{/logout}" method="post">
+    <input type="hidden"
+           th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}"/>
+    <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>

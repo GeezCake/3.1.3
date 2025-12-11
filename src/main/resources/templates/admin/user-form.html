@@ -1,0 +1,21 @@
+@GetMapping("/add")
+public String addUserForm(Model model) {
+model.addAttribute("user", new User());
+return "admin/user-form";
+}
+
+@GetMapping("/edit")
+public String editUser(@RequestParam("id") Long id, Model model) {
+model.addAttribute("user", userService.getById(id));
+return "admin/user-form";
+}
+
+@PostMapping("/save")
+public String saveUser(@ModelAttribute("user") User user) {
+if (user.getId() == null) {
+userService.create(user);
+} else {
+userService.update(user);
+}
+return "redirect:/admin";
+}
