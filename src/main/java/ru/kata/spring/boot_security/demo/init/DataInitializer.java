@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -33,27 +34,32 @@ public class DataInitializer {
             return;
         }
 
+        // --- Роли ---
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
         entityManager.persist(roleAdmin);
         entityManager.persist(roleUser);
 
+        // --- Admin ---
         User admin = new User();
-        admin.setUsername("admin");
+        admin.setUsername("admin@mail.ru");
         admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setFirstName("Admin");
-        admin.setLastName("Adminov");
-        admin.setEmail("admin@example.com");
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setAge((byte) 35);
+        admin.setEmail("admin@mail.ru");
         admin.getRoles().add(roleAdmin);
         admin.getRoles().add(roleUser);
         entityManager.persist(admin);
 
+        // --- User ---
         User user = new User();
-        user.setUsername("user");
+        user.setUsername("user@mail.ru");
         user.setPassword(passwordEncoder.encode("user"));
-        user.setFirstName("User");
-        user.setLastName("Userov");
-        user.setEmail("user@example.com");
+        user.setFirstName("user");
+        user.setLastName("user");
+        user.setAge((byte) 30);
+        user.setEmail("user@mail.ru");
         user.getRoles().add(roleUser);
         entityManager.persist(user);
     }

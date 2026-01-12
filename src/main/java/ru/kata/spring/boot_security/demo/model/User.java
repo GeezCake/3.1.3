@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "age")
+    private Byte age;                 // <-- добавили возраст
+
     @Column(name = "email")
     private String email;
 
@@ -56,15 +59,15 @@ public class User implements UserDetails {
                 String password,
                 String firstName,
                 String lastName,
+                Byte age,
                 String email) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
     }
-
-    // ========= обычные геттеры/сеттеры =========
 
     public Long getId() {
         return id;
@@ -108,6 +111,14 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
+    public Byte getAge() {
+        return age;
+    }
+
+    public void setAge(Byte age) {
+        this.age = age;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -128,27 +139,27 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return roles; // Role implements GrantedAuthority
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // можно вынести в поле, если нужно
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // аналогично
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // аналогично
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // можно добавить поле enabled
+        return true;
     }
 
     @Override
@@ -160,6 +171,7 @@ public class User implements UserDetails {
                 '}';
     }
 }
+
 
 
 
